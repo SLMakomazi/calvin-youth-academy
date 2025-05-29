@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import heroVideo from '../../assets/videos/heroVideo2.mp4';
 import './Hero.css';
 
 const Hero = () => {
@@ -11,7 +10,7 @@ const Hero = () => {
       if (!isVideoLoaded) {
         setShowFallback(true);
       }
-    }, 2000); 
+    }, 2000);
 
     return () => clearTimeout(timer);
   }, [isVideoLoaded]);
@@ -25,12 +24,18 @@ const Hero = () => {
             loop
             muted
             playsInline
-            preload="auto"
             className={`hero-video ${isVideoLoaded ? 'loaded' : 'loading'}`}
-            onLoadedData={() => setIsVideoLoaded(true)}
-            onError={() => setShowFallback(true)}
+            onLoadedData={() => {
+              console.log('Video loaded successfully');
+              setIsVideoLoaded(true);
+            }}
+            onError={(e) => {
+              console.error('Error loading video:', e);
+              setShowFallback(true);
+            }}
           >
-            <source src={heroVideo} type="video/mp4" />
+            <source src="/videos/heroVideo2.mp4" type="video/mp4" />
+            <source src="/videos/heroVideo2.webm" type="video/webm" />
             Your browser does not support the video tag.
           </video>
         ) : (
@@ -39,7 +44,7 @@ const Hero = () => {
         <div className="overlay"></div>
       </div>
       <div className="hero-content">
-        <h1>Calvin Youth Academy </h1>
+        <h1>Calvin Youth Academy</h1>
         <h2>Transforming potential into success through skills training and mentorship</h2>
         <div className="cta-buttons">
           <a href="/courses" className="btn btn-primary">
