@@ -125,9 +125,9 @@
     background-color: #ffffff;
     width: 80%;
     height: 100vh;
-    text-align: center;
-    transition: 0.3s;
-    padding: 6rem 2rem;
+    text-align: left;
+    transition: 0.4s ease-in-out;
+    padding: 6rem 2rem 2rem;
     box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
   }
 
@@ -137,8 +137,49 @@
 
   .nav-link {
     color: #000000;
-    margin: 1rem 0;
-    font-size: 1.2rem;
+    margin: 0.5rem 0;
+    padding: 0.5rem 1rem;
+    font-size: 1.1rem;
+    transition: all 0.3s ease;
+    position: relative;
+    display: inline-block;
+    width: 100%;
+  }
+
+  .nav-link::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: 0;
+    left: 1rem;
+    background-color: #007bff;
+    transition: width 0.3s ease;
+    display: block;
+  }
+
+  .nav-link:hover,
+  .nav-link:focus {
+    color: #007bff;
+    background: none;
+    padding-left: 1rem;
+  }
+
+  .nav-link:hover::after,
+  .nav-link:focus::after {
+    width: calc(100% - 2rem);
+  }
+
+  .nav-link::before {
+    display: none;
+  }
+
+  .nav-link.active {
+    color: #007bff;
+  }
+
+  .nav-link.active::after {
+    width: calc(100% - 2rem);
   }
 
   .navbar-brand .logo-link {
