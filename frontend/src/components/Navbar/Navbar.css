@@ -11,7 +11,7 @@
 }
 
 .navbar.scrolled {
-  background-color: #ffffff;
+  background-color: #000000;
   box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
   padding: 0.5rem 0;
 }
@@ -35,7 +35,7 @@
 }
 
 .navbar.scrolled .navbar-brand .logo-link {
-  color: #333;
+  color: #000000;
 }
 
 /* Navigation Links */
@@ -58,7 +58,7 @@
 }
 
 .navbar.scrolled .nav-link {
-  color: #333;
+  color: #000000;
 }
 
 .nav-link::after {
@@ -103,12 +103,12 @@
   width: 25px;
   height: 3px;
   margin: 5px auto;
-  background-color: #fff;
+  background-color: #000000;
   transition: all 0.3s ease-in-out;
 }
 
 .navbar.scrolled .bar {
-  background-color: #333;
+  background-color: #000000;
 }
 
 /* Responsive Styles */
@@ -136,18 +136,18 @@
   }
 
   .nav-link {
-    color: #333;
+    color: #000000;
     margin: 1rem 0;
     font-size: 1.2rem;
   }
 
   .navbar-brand .logo-link {
-    color: #fff;
+    color: #000000;
     font-size: 1.3rem;
   }
 
   .navbar.scrolled .navbar-brand .logo-link {
-    color: #333;
+    color: #000000;
   }
 
   .navbar-container {
