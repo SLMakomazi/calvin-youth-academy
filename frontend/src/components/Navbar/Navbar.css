@@ -1,0 +1,170 @@
+/* Base Navbar Styles */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: transparent;
+  z-index: 1000;
+  transition: all 0.3s ease-in-out;
+  padding: 1rem 0;
+}
+
+.navbar.scrolled {
+  background-color: #ffffff;
+  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+  padding: 0.5rem 0;
+}
+
+.navbar-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Logo/Brand */
+.navbar-brand .logo-link {
+  text-decoration: none;
+  color: #000000;
+  font-size: 1.5rem;
+  font-weight: 700;
+  transition: color 0.3s ease;
+}
+
+.navbar.scrolled .navbar-brand .logo-link {
+  color: #333;
+}
+
+/* Navigation Links */
+.nav-links {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  gap: 1.5rem;
+}
+
+.nav-link {
+  text-decoration: none;
+  color: #000000;
+  font-weight: 500;
+  font-size: 1rem;
+  position: relative;
+  padding: 0.5rem 0;
+  transition: color 0.3s ease;
+}
+
+.navbar.scrolled .nav-link {
+  color: #333;
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  background-color: #007bff;
+  transition: width 0.3s ease;
+}
+
+.nav-link:hover,
+.nav-link:focus {
+  color: #007bff;
+}
+
+.nav-link:hover::after,
+.nav-link:focus::after {
+  width: 100%;
+}
+
+/* Active link */
+.nav-link.active {
+  color: #007bff;
+}
+
+.nav-link.active::after {
+  width: 100%;
+}
+
+/* Hamburger Menu */
+.hamburger {
+  display: none;
+  cursor: pointer;
+  z-index: 1001;
+}
+
+.bar {
+  display: block;
+  width: 25px;
+  height: 3px;
+  margin: 5px auto;
+  background-color: #fff;
+  transition: all 0.3s ease-in-out;
+}
+
+.navbar.scrolled .bar {
+  background-color: #333;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .hamburger {
+    display: block;
+  }
+
+  .nav-links {
+    position: fixed;
+    left: -100%;
+    top: 0;
+    flex-direction: column;
+    background-color: #ffffff;
+    width: 80%;
+    height: 100vh;
+    text-align: center;
+    transition: 0.3s;
+    padding: 6rem 2rem;
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+  }
+
+  .nav-links.active {
+    left: 0;
+  }
+
+  .nav-link {
+    color: #333;
+    margin: 1rem 0;
+    font-size: 1.2rem;
+  }
+
+  .navbar-brand .logo-link {
+    color: #fff;
+    font-size: 1.3rem;
+  }
+
+  .navbar.scrolled .navbar-brand .logo-link {
+    color: #333;
+  }
+
+  .navbar-container {
+    padding: 0 1.5rem;
+  }
+}
+
+/* Animation for navbar on scroll */
+@keyframes slideDown {
+  from {
+    transform: translateY(-100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+.navbar.scrolled {
+  animation: slideDown 0.3s ease-in-out;
+}
