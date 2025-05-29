@@ -1,20 +1,46 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import heroVideo from '../../assets/videos/heroVideo2.mp4';
 import './Hero.css';
 
 const Hero = () => {
+  const [isVideoLoaded, setIsVideoLoaded] = useState(false);
+  const [showFallback, setShowFallback] = useState(false);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if (!isVideoLoaded) {
+        setShowFallback(true);
+      }
+    }, 2000); 
+
+    return () => clearTimeout(timer);
+  }, [isVideoLoaded]);
+
   return (
     <section className="hero">
       <div className="video-container">
-        <video autoPlay loop muted playsInline className="hero-video">
-          <source src={heroVideo} type="video/mp4" />
-          Your browser does not support the video tag.
-        </video>
+        {!showFallback ? (
+          <video
+            autoPlay
+            loop
+            muted
+            playsInline
+            preload="auto"
+            className={`hero-video ${isVideoLoaded ? 'loaded' : 'loading'}`}
+            onLoadedData={() => setIsVideoLoaded(true)}
+            onError={() => setShowFallback(true)}
+          >
+            <source src={heroVideo} type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
+        ) : (
+          <div className="fallback-background"></div>
+        )}
         <div className="overlay"></div>
       </div>
       <div className="hero-content">
-        <h1>Empowering Youth for a Brighter Future</h1>
-        <p>Transforming potential into success through skills training and mentorship</p>
+        <h1>Calvin Youth Academy </h1>
+        <h2>Transforming potential into success through skills training and mentorship</h2>
         <div className="cta-buttons">
           <a href="/courses" className="btn btn-primary">
             <span>Explore Courses</span>

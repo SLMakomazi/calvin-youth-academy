@@ -20,6 +20,7 @@
   width: 100%;
   height: 100%;
   overflow: hidden;
+  background-color: #000; /* Fallback background */
 }
 
 .hero-video {
@@ -32,6 +33,27 @@
   height: auto;
   transform: translate(-50%, -50%);
   object-fit: cover;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.hero-video.loaded {
+  opacity: 1;
+}
+
+.hero-video.loading {
+  opacity: 0;
+}
+
+.fallback-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+  background-size: cover;
+  background-position: center;
 }
 
 .overlay {
@@ -40,7 +62,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.4);
   z-index: 1;
 }
 
