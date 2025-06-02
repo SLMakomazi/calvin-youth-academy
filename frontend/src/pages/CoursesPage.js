@@ -144,6 +144,10 @@ const CoursesPage = () => {
         <div className="container">
           <h1>Our Courses</h1>
           <p>MICT SETA Accredited Qualifications</p>
+          <nav className="section-nav">
+            <a href="#nqf5">NQF Level 5</a>
+            <a href="#nqf6">NQF Level 6</a>
+          </nav>
         </div>
       </section>
 
@@ -151,7 +155,7 @@ const CoursesPage = () => {
         <div className="container">
           <div className="courses-container">
             {/* NQF Level 5 Section */}
-            <div className="level-section">
+            <div id="nqf5" className="level-section">
               <h2>NQF Level 5 Qualifications</h2>
               <p>These qualifications are designed to provide students with the knowledge and skills required to enter the workforce or continue their education at the next level.</p>
               <div className="course-cards-container">
@@ -169,7 +173,7 @@ const CoursesPage = () => {
             </div>
 
             {/* NQF Level 6 Section */}
-            <div className="level-section">
+            <div id="nqf6" className="level-section">
               <h2>NQF Level 6 Qualifications</h2>
               <p>Advanced qualifications for those looking to specialize further in their IT career paths.</p>
               <div className="course-cards-container">
