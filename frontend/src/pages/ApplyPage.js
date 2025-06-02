@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { FaHome, FaBook, FaEnvelope } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
 import './ApplyPage.css';
 
 const ApplyPage = () => {
@@ -95,6 +97,21 @@ const ApplyPage = () => {
   if (isSubmitted) {
     return (
       <div className="apply-page">
+        <nav className="apply-nav">
+          <div className="container">
+            <div className="nav-links">
+              <Link to="/" className="nav-btn">
+                <FaHome /> Home
+              </Link>
+              <Link to="/courses" className="nav-btn">
+                <FaBook /> Courses
+              </Link>
+              <a href="#contact" className="nav-btn">
+                <FaEnvelope /> Contact
+              </a>
+            </div>
+          </div>
+        </nav>
         <div className="container">
           <div className="thank-you-message">
             <h2>Thank You for Your Application</h2>
@@ -109,6 +126,21 @@ const ApplyPage = () => {
 
   return (
     <div className="apply-page">
+      <nav className="apply-nav">
+        <div className="container">
+          <div className="nav-links">
+            <Link to="/" className="nav-btn">
+              <FaHome /> Home
+            </Link>
+            <Link to="/courses" className="nav-btn">
+              <FaBook /> Courses
+            </Link>
+            <a href="#contact" className="nav-btn">
+              <FaEnvelope /> Contact
+            </a>
+          </div>
+        </div>
+      </nav>
       <div className="container">
         <h1>Application Form</h1>
         <p className="form-subtitle">Please fill in all required fields (*)</p>

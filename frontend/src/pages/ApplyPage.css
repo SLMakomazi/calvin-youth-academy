@@ -224,6 +224,45 @@ input:checked + .slider:before {
   border-left: 4px solid #3182ce;
 }
 
+/* Navigation Bar */
+.apply-nav {
+  background-color: #1a365d;
+  padding: 1rem 0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 2rem;
+}
+
+.nav-links {
+  display: flex;
+  gap: 1.5rem;
+  justify-content: center;
+}
+
+.nav-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: white;
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  transition: background-color 0.2s, transform 0.1s;
+  font-weight: 500;
+}
+
+.nav-btn:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  transform: translateY(-1px);
+}
+
+.nav-btn:active {
+  transform: translateY(0);
+}
+
+.nav-btn svg {
+  font-size: 1.1em;
+}
+
 /* Submit Section */
 .submit-section {
   text-align: center;
