@@ -3,6 +3,7 @@ import Navbar from '../components/Navbar/Navbar';
 import Hero from '../components/Hero/Hero';
 import About from '../components/About/About';
 import Courses from '../components/Courses/Courses';
+import Partnerships from '../components/Partnerships/Partnerships';
 import './Home.css';
 
 const Home = () => {
@@ -13,7 +14,7 @@ const Home = () => {
         <Hero />
         <About />
         <Courses />
-        {/* Other sections will go here */}
+        <Partnerships />
       </main>
     </div>
   );
