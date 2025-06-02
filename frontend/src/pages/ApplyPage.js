@@ -1,8 +1,68 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { FaHome, FaBook, FaEnvelope } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import './ApplyPage.css';
+
+const ResponsiveNav = () => {
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  const navStyle = {
+    position: isMobile ? 'fixed' : 'static',
+    bottom: isMobile ? 0 : 'auto',
+    left: 0,
+    right: 0,
+    background: '#1a365d',
+    padding: isMobile ? '10px 0' : '15px 0',
+    zIndex: 1000,
+    display: 'flex',
+    justifyContent: 'space-around',
+    alignItems: 'center',
+    boxShadow: isMobile ? '0 -2px 10px rgba(0,0,0,0.1)' : '0 2px 10px rgba(0,0,0,0.1)'
+  };
+
+  const linkStyle = {
+    color: 'white', 
+    textDecoration: 'none', 
+    display: 'flex', 
+    flexDirection: isMobile ? 'column' : 'row',
+    alignItems: 'center',
+    gap: isMobile ? '4px' : '8px',
+    padding: isMobile ? '5px 10px' : '5px 15px',
+    fontSize: isMobile ? '12px' : '14px'
+  };
+
+  const iconStyle = {
+    fontSize: isMobile ? '20px' : '18px',
+    marginBottom: isMobile ? '4px' : 0
+  };
+
+  return (
+    <div style={navStyle}>
+      <Link to="/" style={linkStyle}>
+        <FaHome style={iconStyle} />
+        <span>Home</span>
+      </Link>
+      <Link to="/courses" style={linkStyle}>
+        <FaBook style={iconStyle} />
+        <span>Courses</span>
+      </Link>
+      <a href="#contact" style={linkStyle}>
+        <FaEnvelope style={iconStyle} />
+        <span>Contact</span>
+      </a>
+    </div>
+  );
+};
 
 const ApplyPage = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -96,23 +156,9 @@ const ApplyPage = () => {
 
   if (isSubmitted) {
     return (
-      <div className="apply-page">
-        <nav className="apply-nav">
-          <div className="container">
-            <div className="nav-links">
-              <Link to="/" className="nav-btn">
-                <FaHome /> Home
-              </Link>
-              <Link to="/courses" className="nav-btn">
-                <FaBook /> Courses
-              </Link>
-              <a href="#contact" className="nav-btn">
-                <FaEnvelope /> Contact
-              </a>
-            </div>
-          </div>
-        </nav>
-        <div className="container">
+      <div style={{ paddingBottom: '70px', paddingTop: '70px' }}>
+        <ResponsiveNav />
+        <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 1.5rem', paddingTop: window.innerWidth > 768 ? '2rem' : '0' }}>
           <div className="thank-you-message">
             <h2>Thank You for Your Application</h2>
             <p>We've received your application and will review it shortly.</p>
@@ -125,24 +171,18 @@ const ApplyPage = () => {
   }
 
   return (
-    <div className="apply-page">
-      <nav className="apply-nav">
-        <div className="container">
-          <div className="nav-links">
-            <Link to="/" className="nav-btn">
-              <FaHome /> Home
-            </Link>
-            <Link to="/courses" className="nav-btn">
-              <FaBook /> Courses
-            </Link>
-            <a href="#contact" className="nav-btn">
-              <FaEnvelope /> Contact
-            </a>
-          </div>
-        </div>
-      </nav>
-      <div className="container">
-        <h1>Application Form</h1>
+    <div style={{ paddingBottom: '70px', paddingTop: '70px' }}>
+      <ResponsiveNav />
+      <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 1.5rem', paddingTop: window.innerWidth > 768 ? '2rem' : '0' }}>
+        <h1 style={{
+          color: '#1a365d',
+          marginBottom: '0.5rem',
+          textAlign: 'center',
+          fontSize: '2.2rem',
+          paddingTop: '1rem'
+        }}>
+          Application Form
+        </h1>
         <p className="form-subtitle">Please fill in all required fields (*)</p>
         
         <form onSubmit={handleSubmit(onSubmit)} className="application-form">
