@@ -4,10 +4,33 @@ import { Link } from 'react-router-dom';
 import './CoursesPage.css';
 
 const CoursesPage = () => {
-  const [expandedCourse, setExpandedCourse] = useState(null);
+  const [expandedCourses, setExpandedCourses] = useState({});
 
-  const toggleCourse = (id) => {
-    setExpandedCourse(expandedCourse === id ? null : id);
+  const toggleCourse = (index, level) => {
+    setExpandedCourses(prev => ({
+      ...prev,
+      [level]: prev[level] === index ? null : index
+    }));
+
+    // If we're expanding a course on mobile, scroll to it
+    if (window.innerWidth <= 768 && expandedCourses[level] !== index) {
+      // Use setTimeout to ensure the DOM has updated with the expanded content
+      setTimeout(() => {
+        const element = document.getElementById(`course-${level}-${index}`);
+        if (element) {
+          element.scrollIntoView({
+            behavior: 'smooth',
+            block: 'nearest',
+            inline: 'nearest'
+          });
+          
+          // For iOS devices, we need an additional scroll adjustment
+          if (/iPad|iPhone|iPod/.test(navigator.userAgent)) {
+            window.scrollBy(0, -80); // Adjust this value based on your header height
+          }
+        }
+      }, 100); // Small delay to allow the content to expand
+    }
   };
 
   const courses = [
@@ -169,12 +192,12 @@ const CoursesPage = () => {
               <div className="course-cards-container">
                 {courses
                   .filter(course => course.level === 5)
-                  .map(course => (
+                  .map((course, index) => (
                     <CourseCard 
-                      key={course.id}
+                      key={index}
                       course={course}
-                      isExpanded={expandedCourse === course.id}
-                      onToggle={() => toggleCourse(course.id)}
+                      isExpanded={expandedCourses[course.level] === index}
+                      onToggle={() => toggleCourse(index, course.level)}
                     />
                   ))}
               </div>
@@ -187,12 +210,12 @@ const CoursesPage = () => {
               <div className="course-cards-container">
                 {courses
                   .filter(course => course.level === 6)
-                  .map(course => (
+                  .map((course, index) => (
                     <CourseCard 
-                      key={course.id}
+                      key={index}
                       course={course}
-                      isExpanded={expandedCourse === course.id}
-                      onToggle={() => toggleCourse(course.id)}
+                      isExpanded={expandedCourses[course.level] === index}
+                      onToggle={() => toggleCourse(index, course.level)}
                     />
                   ))}
               </div>
@@ -307,7 +330,10 @@ const CoursesPage = () => {
 
 const CourseCard = ({ course, isExpanded, onToggle }) => {
   return (
-    <div className={`course-card ${isExpanded ? 'expanded' : ''}`}>
+    <div 
+      id={`course-${course.level}-${course.id}`}
+      className={`course-card ${isExpanded ? 'expanded' : ''}`}
+    >
       <div className="course-header" onClick={onToggle}>
         <h3>National Certificate: {course.title}</h3>
         <span className="toggle-icon">

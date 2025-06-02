@@ -151,6 +151,7 @@
   height: 100%;
   display: flex;
   flex-direction: column;
+  position: relative;
 }
 
 .course-header {
@@ -180,15 +181,31 @@
   transition: transform 0.3s ease;
 }
 
+.course-content {
+  padding: 1.5rem;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
 .course-details {
   max-height: 0;
   overflow: hidden;
   transition: max-height 0.3s ease-out;
+  background-color: #f8fafc;
+  margin: 0 -1.5rem -1.5rem;
+  padding: 0 1.5rem;
+  position: relative;
+  z-index: 1;
 }
 
 .course-card.expanded .course-details {
   max-height: 2000px;
-  transition: max-height 0.6s ease-in;
+  padding: 1.5rem;
+  margin-top: 1rem;
+  border-top: 1px solid #e2e8f0;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 .course-meta {
@@ -210,10 +227,6 @@
 
 .course-meta svg {
   color: #3b82f6;
-}
-
-.course-content {
-  padding: 1.5rem;
 }
 
 .info-row {
@@ -466,6 +479,35 @@
   .certification-category h3 {
     font-size: 1.1rem;
   }
+  
+  .course-details.expanded {
+    position: relative;
+    z-index: 100;
+    max-height: 80vh;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    padding: 1rem;
+    margin: 0.5rem -1rem -1rem;
+  }
+
+  .course-card {
+    margin-bottom: 1.5rem;
+  }
+
+  .course-card.expanded {
+    z-index: 1000;
+    position: relative;
+    transform: translateZ(0);
+  }
+
+  .course-cards-container {
+    position: relative;
+    z-index: 1;
+  }
+
+  .course-card.expanded {
+    scroll-margin-top: 80px;
+  }
 }
 
 @media (max-width: 480px) {
@@ -495,4 +537,18 @@
 /* Add smooth scrolling */
 html {
   scroll-behavior: smooth;
+}
+
+/* Add smooth scrolling behavior for the expanded content */
+@supports (scroll-behavior: smooth) {
+  .course-card.expanded {
+    scroll-margin-top: 80px;
+  }
+}
+
+/* Fix for iOS devices */
+@supports (-webkit-touch-callout: none) {
+  .course-details.expanded {
+    -webkit-overflow-scrolling: touch;
+  }
 }
