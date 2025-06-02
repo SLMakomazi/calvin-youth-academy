@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { FaChevronDown, FaChevronUp, FaBook, FaClock, FaGraduationCap } from 'react-icons/fa';
+import { FaChevronDown, FaChevronUp, FaBook, FaClock, FaGraduationCap, FaHome } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import './CoursesPage.css';
 
@@ -142,12 +142,20 @@ const CoursesPage = () => {
     <div className="courses-page">
       <section className="page-header">
         <div className="container">
-          <h1>Our Courses</h1>
-          <p>MICT SETA Accredited Qualifications</p>
-          <nav className="section-nav">
-            <a href="#nqf5">NQF Level 5</a>
-            <a href="#nqf6">NQF Level 6</a>
-          </nav>
+          <div className="header-content">
+            <div className="header-text">
+              <h1>Our Courses</h1>
+              <p>MICT SETA Accredited Qualifications</p>
+            </div>
+            <nav className="section-nav">
+              <a href="/" className="home-btn">
+                <FaHome /> Home
+              </a>
+              <a href="#nqf5">NQF Level 5</a>
+              <a href="#nqf6">NQF Level 6</a>
+              <a href="#certifications">Certifications</a>
+            </nav>
+          </div>
         </div>
       </section>
 
@@ -187,6 +195,93 @@ const CoursesPage = () => {
                       onToggle={() => toggleCourse(course.id)}
                     />
                   ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="certifications" className="certifications-section">
+        <div className="container">
+          <h2>Additional Certifications</h2>
+          <p>Enhance your qualifications with these industry-recognized certifications</p>
+          
+          <div className="certification-categories">
+            {/* Systems Support / Technical Support */}
+            <div className="certification-category">
+              <h3>🔵 For Systems Support / Technical Support (NQF 5)</h3>
+              <div className="certification-grid">
+                <div className="certification-card">
+                  <h4>Microsoft Certified: Azure Fundamentals</h4>
+                  <p>Learn basics of cloud services and how they are provided with Microsoft Azure.</p>
+                  <span className="cert-source">Microsoft Learn</span>
+                </div>
+                <div className="certification-card">
+                  <h4>CompTIA A+</h4>
+                  <p>Covers hardware, networking, troubleshooting, and security.</p>
+                  <span className="cert-source">Globally recognized IT support certification</span>
+                </div>
+                <div className="certification-card">
+                  <h4>Cisco Networking Basics</h4>
+                  <p>Great for foundational networking knowledge (can lead to CCNA track).</p>
+                  <span className="cert-source">Cisco NetAcad</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Systems Development */}
+            <div className="certification-category">
+              <h3>🔵 For Systems Development (NQF 5/6)</h3>
+              <div className="certification-grid">
+                <div className="certification-card">
+                  <h4>Microsoft Power Platform Fundamentals</h4>
+                  <p>Learn app development, automation, and reporting using Power Apps and Power BI.</p>
+                  <span className="cert-source">Microsoft Learn</span>
+                </div>
+                <div className="certification-card">
+                  <h4>Meta Front-End Developer Certificate</h4>
+                  <p>Learn React, JavaScript, Git, and design principles.</p>
+                  <span className="cert-source">Coursera</span>
+                </div>
+                <div className="certification-card">
+                  <h4>AWS Cloud Practitioner Essentials</h4>
+                  <p>Teaches cloud computing and AWS core services.</p>
+                  <span className="cert-source">AWS Skill Builder</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Software Testing */}
+            <div className="certification-category">
+              <h3>🔵 For Software Testing (NQF 5)</h3>
+              <div className="certification-grid">
+                <div className="certification-card">
+                  <h4>ISTQB Certified Tester Foundation Level</h4>
+                  <p>Internationally recognized certificate in software testing.</p>
+                  <span className="cert-source">ISTQB</span>
+                </div>
+                <div className="certification-card">
+                  <h4>Test Automation with Selenium WebDriver</h4>
+                  <p>Useful for introducing automation testing with Selenium, JavaScript, Python, etc.</p>
+                  <span className="cert-source">Udemy/Coursera</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Business Analysis & Database Admin */}
+            <div className="certification-category">
+              <h3>🔵 For Business Analysis & Database Administration (NQF 5/6)</h3>
+              <div className="certification-grid">
+                <div className="certification-card">
+                  <h4>Microsoft Power BI Data Analyst Associate</h4>
+                  <p>Learn how to analyze data and create dashboards.</p>
+                  <span className="cert-source">Microsoft Learn</span>
+                </div>
+                <div className="certification-card">
+                  <h4>IBM Data Analyst Professional Certificate</h4>
+                  <p>SQL, Excel, Python for data handling and reporting.</p>
+                  <span className="cert-source">Coursera</span>
+                </div>
               </div>
             </div>
           </div>
