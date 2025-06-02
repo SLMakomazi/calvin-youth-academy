@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { FaChevronDown, FaChevronUp, FaBook, FaClock, FaGraduationCap, FaHome } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import './CoursesPage.css';
@@ -329,6 +329,18 @@ const CoursesPage = () => {
 };
 
 const CourseCard = ({ course, isExpanded, onToggle }) => {
+  useEffect(() => {
+    if (isExpanded && window.innerWidth <= 768) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'auto';
+    }
+    
+    return () => {
+      document.body.style.overflow = 'auto';
+    };
+  }, [isExpanded]);
+
   return (
     <div 
       id={`course-${course.level}-${course.id}`}
@@ -341,21 +353,48 @@ const CourseCard = ({ course, isExpanded, onToggle }) => {
         </span>
       </div>
       
-      <div className="course-details">
+      {isExpanded && (
+        <button 
+          className="close-expanded" 
+          onClick={(e) => {
+            e.stopPropagation();
+            onToggle();
+          }}
+          aria-label="Close expanded view"
+        >
+          ✕
+        </button>
+      )}
+
+      <div className="course-content">
         <div className="course-meta">
-          <span><FaBook /> {course.saqaId}</span>
-          <span><FaGraduationCap /> {course.credits}</span>
-          <span><FaClock /> {course.duration}</span>
-        </div>
-        
-        <div className="course-content">
           <div className="info-row">
-            <h4>Prerequisites:</h4>
+            <span className="info-label"><FaBook /> SAQA ID:</span>
+            <span className="info-value">{course.saqaId}</span>
+          </div>
+          <div className="info-row">
+            <span className="info-label"><FaClock /> Credits:</span>
+            <span className="info-value">{course.credits}</span>
+          </div>
+          <div className="info-row">
+            <span className="info-label"><FaGraduationCap /> NQF Level:</span>
+            <span className="info-value">{course.level}</span>
+          </div>
+        </div>
+
+        <div className="course-details">
+          <div className="info-section">
+            <h4>Duration</h4>
+            <p>{course.duration}</p>
+          </div>
+          
+          <div className="info-section">
+            <h4>Prerequisites</h4>
             <p>{course.prerequisites}</p>
           </div>
           
-          <div className="info-row">
-            <h4>Modules:</h4>
+          <div className="info-section">
+            <h4>Modules</h4>
             <ul>
               {course.modules.map((module, idx) => (
                 <li key={idx}>{module}</li>
@@ -363,18 +402,18 @@ const CourseCard = ({ course, isExpanded, onToggle }) => {
             </ul>
           </div>
           
-          <div className="info-row">
-            <h4>Delivery:</h4>
+          <div className="info-section">
+            <h4>Delivery Method</h4>
             <p>{course.delivery}</p>
           </div>
           
-          <div className="info-row">
-            <h4>Assessment:</h4>
+          <div className="info-section">
+            <h4>Assessment</h4>
             <p>{course.assessment}</p>
           </div>
           
           <div className="course-actions">
-            <Link to="/apply" className="btn btn-primary">
+            <Link to="/apply" className="apply-btn">
               Apply Now
             </Link>
           </div>
