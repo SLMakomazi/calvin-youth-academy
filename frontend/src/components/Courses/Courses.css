@@ -1,0 +1,246 @@
+/* Courses Section */
+.courses-section {
+  background-color: #f8fafc;
+  padding: 6rem 0;
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+.section-header {
+  text-align: center;
+  margin-bottom: 3.5rem;
+  width: 100%;
+}
+
+.section-header h2 {
+  font-size: 2.5rem;
+  color: #1e3a8a;
+  margin-bottom: 1rem;
+  font-weight: 700;
+}
+
+.divider {
+  width: 80px;
+  height: 4px;
+  background: linear-gradient(90deg, #3b82f6, #1d4ed8);
+  margin: 0 auto 1.5rem;
+  border-radius: 2px;
+}
+
+.section-subtitle {
+  font-size: 1.25rem;
+  color: #4b5563;
+  max-width: 700px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+/* Courses Grid */
+.courses-grid {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3rem;
+  margin-bottom: 3rem;
+  width: 100%;
+}
+
+.course-level {
+  margin-bottom: 2rem;
+  width: 100%;
+  max-width: 1200px;
+}
+
+.level-title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  font-size: 1.5rem;
+  color: #1e40af;
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 2px solid #e2e8f0;
+  text-align: center;
+}
+
+.level-icon {
+  color: #3b82f6;
+  font-size: 1.75rem;
+}
+
+.courses-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+  justify-content: center;
+}
+
+/* Course Card */
+.course-card {
+  background: white;
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  border: 1px solid #e2e8f0;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.course-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  border-color: #3b82f6;
+}
+
+.course-icon-container {
+  width: 60px;
+  height: 60px;
+  background-color: #e0f2fe;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1.5rem;
+  color: #0369a1;
+  font-size: 1.5rem;
+}
+
+.course-card h4 {
+  font-size: 1.1rem;
+  color: #1e40af;
+  margin-bottom: 1rem;
+  line-height: 1.4;
+  text-align: center;
+}
+
+.course-description {
+  color: #4b5563;
+  margin-bottom: 1rem;
+  line-height: 1.6;
+  flex-grow: 1;
+  text-align: center;
+}
+
+.course-outcome {
+  color: #4b5563;
+  font-size: 0.95rem;
+  margin-bottom: 1.5rem;
+  line-height: 1.6;
+  text-align: center;
+}
+
+.course-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #3b82f6;
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 0.2s ease;
+  margin-top: auto;
+  text-align: center;
+  width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.course-link:hover {
+  color: #1d4ed8;
+  text-decoration: underline;
+}
+
+.course-link span {
+  margin-left: 0.5rem;
+  transition: transform 0.2s ease;
+}
+
+.course-link:hover span {
+  transform: translateX(4px);
+}
+
+.courses-note {
+  text-align: center;
+  margin: 3rem auto 0;
+  padding: 1.5rem;
+  background-color: #e0f2fe;
+  border-radius: 8px;
+  color: #0369a1;
+  max-width: 800px;
+  font-size: 0.95rem;
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+  .container {
+    padding: 0 2rem;
+  }
+}
+
+@media (max-width: 1024px) {
+  .courses-container {
+    grid-template-columns: repeat(auto-fill, minmax(280px, 350px));
+    justify-content: center;
+  }
+}
+
+@media (max-width: 768px) {
+  .courses-section {
+    padding: 4rem 0;
+  }
+  
+  .section-header h2 {
+    font-size: 2rem;
+  }
+  
+  .section-subtitle {
+    font-size: 1.1rem;
+  }
+  
+  .courses-container {
+    grid-template-columns: 1fr;
+    max-width: 500px;
+    margin: 1.5rem auto 0;
+  }
+  
+  .course-card {
+    padding: 1.5rem;
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .section-header h2 {
+    font-size: 1.75rem;
+  }
+  
+  .level-title {
+    font-size: 1.3rem;
+  }
+  
+  .course-card h4 {
+    font-size: 1rem;
+  }
+  
+  .course-description,
+  .course-outcome {
+    font-size: 0.9rem;
+  }
+  
+  .container {
+    padding: 0 1.25rem;
+  }
+}
