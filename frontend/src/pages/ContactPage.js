@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { FaMapMarkerAlt, FaPhoneAlt, FaEnvelope, FaClock, FaWhatsapp, FaTelegram, FaFacebookMessenger } from 'react-icons/fa';
+import { FaHome, FaGraduationCap, FaFileAlt, FaMapMarkerAlt, FaPhoneAlt, FaEnvelope, FaWhatsapp, FaFacebookMessenger } from 'react-icons/fa';
 import { MdEmail } from 'react-icons/md';
 import { IoMdSend } from 'react-icons/io';
 import { FiCheckCircle } from 'react-icons/fi';
-import { FaHome, FaGraduationCap, FaFileAlt, FaTimes } from 'react-icons/fa';
+import { FaTimes } from 'react-icons/fa';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import './ContactPage.css';
@@ -19,11 +19,12 @@ const ContactPage = () => {
     department: 'general'
   });
   const [isNavOpen, setIsNavOpen] = useState(false);
+  const [activeFaq, setActiveFaq] = useState(null);
 
   const departments = [
-    { id: 'general', name: 'General Inquiries' },
-    { id: 'admissions', name: 'Admissions' },
-    { id: 'support', name: 'Technical Support' },
+    { id: 'general', name: 'General Inquiries', icon: <FaHome /> },
+    { id: 'admissions', name: 'Admissions', icon: <FaGraduationCap /> },
+    { id: 'support', name: 'Technical Support', icon: <FaFileAlt /> },
     { id: 'partnerships', name: 'Partnerships' },
     { id: 'careers', name: 'Careers' }
   ];
@@ -33,7 +34,6 @@ const ContactPage = () => {
     email: 'info@calvinyouthacademy.com',
     phone: '+1 234 567 8900',
     whatsapp: '+1 234 567 8901',
-    telegram: '@calvinyouth',
     messenger: 'm.me/calvinyouthacademy',
     hours: [
       'Monday - Friday: 8:00 AM - 6:00 PM',
@@ -67,6 +67,29 @@ const ContactPage = () => {
       [name]: value
     }));
   };
+
+  const toggleFaq = (index) => {
+    setActiveFaq(activeFaq === index ? null : index);
+  };
+
+  const faqs = [
+    {
+      question: 'What are your admission requirements?',
+      answer: 'Our admission requirements vary by program. Generally, we require a high school diploma or equivalent, and some programs may have additional prerequisites. Please visit our Admissions page for specific requirements.'
+    },
+    {
+      question: 'Do you offer financial aid or scholarships?',
+      answer: 'Yes, we offer various financial aid options including scholarships, grants, and payment plans. Contact our financial aid office for more information about eligibility and application processes.'
+    },
+    {
+      question: 'Can I schedule a campus tour?',
+      answer: 'Absolutely! We encourage prospective students to visit our campus. You can schedule a tour through our website or by contacting our admissions office.'
+    },
+    {
+      question: 'What support services do you offer to students?',
+      answer: 'We provide comprehensive support services including academic advising, career counseling, tutoring, and mental health resources to ensure our students\' success.'
+    }
+  ];
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -206,31 +229,10 @@ const ContactPage = () => {
                 <a href={`mailto:${contactInfo.email}`} className="contact-method">
                   <MdEmail /> Email Us
                 </a>
-                <a href={`https://t.me/${contactInfo.telegram}`} className="contact-method">
-                  <FaTelegram /> Telegram
+                <a href={`https://m.me/${contactInfo.messenger.split('/').pop()}`} className="contact-method">
+                  <FaFacebookMessenger /> Messenger
                 </a>
               </div>
-            </motion.div>
-
-            <motion.div className="contact-card" variants={itemVariants}>
-              <div className="contact-icon">
-                <FaClock />
-              </div>
-              <h3>Working Hours</h3>
-              <ul className="hours-list">
-                {contactInfo.hours.map((hour, index) => (
-                  <li key={index}>{hour}</li>
-                ))}
-              </ul>
-              <button 
-                className="contact-method"
-                onClick={() => {
-                  // Add your Messenger URL here
-                  window.open('https://m.me/calvinyouthacademy', '_blank', 'noopener,noreferrer');
-                }}
-              >
-                <FaFacebookMessenger /> Chat with us
-              </button>
             </motion.div>
           </motion.div>
         </div>
@@ -245,14 +247,15 @@ const ContactPage = () => {
           </div>
           
           <div className="form-container">
-            <div className="tabs">
-              {departments.map(dept => (
+            <div className="department-tabs">
+              {departments.map((dept) => (
                 <button
                   key={dept.id}
-                  className={`tab ${activeTab === dept.id ? 'active' : ''}`}
+                  className={`tab-btn ${activeTab === dept.id ? 'active' : ''}`}
                   onClick={() => setActiveTab(dept.id)}
                 >
-                  {dept.name}
+                  <span className="tab-icon">{dept.icon}</span>
+                  <span className="tab-text">{dept.name}</span>
                 </button>
               ))}
             </div>
@@ -357,51 +360,34 @@ const ContactPage = () => {
           </div>
           
           <div className="faq-container">
-            <div className="faq-item">
-              <button className="faq-question">
-                What are your admission requirements?
-                <span className="faq-icon">+</span>
-              </button>
-              <div className="faq-answer">
-                <p>Our admission requirements vary by program. Generally, we require a high school diploma or equivalent, and some programs may have additional prerequisites. Please visit our Admissions page for specific requirements.</p>
+            {faqs.map((faq, index) => (
+              <div className={`faq-item ${activeFaq === index ? 'active' : ''}`} key={index}>
+                <button 
+                  className="faq-question"
+                  onClick={() => toggleFaq(index)}
+                  aria-expanded={activeFaq === index}
+                  aria-controls={`faq-answer-${index}`}
+                >
+                  {faq.question}
+                  <span className="faq-icon">{activeFaq === index ? '−' : '+'}</span>
+                </button>
+                <div 
+                  id={`faq-answer-${index}`}
+                  className="faq-answer"
+                  style={{
+                    maxHeight: activeFaq === index ? '500px' : '0',
+                    opacity: activeFaq === index ? '1' : '0',
+                    padding: activeFaq === index ? '1rem 0' : '0 1rem'
+                  }}
+                >
+                  <p>{faq.answer}</p>
+                </div>
               </div>
-            </div>
-            
-            <div className="faq-item">
-              <button className="faq-question">
-                Do you offer financial aid or scholarships?
-                <span className="faq-icon">+</span>
-              </button>
-              <div className="faq-answer">
-                <p>Yes, we offer various financial aid options including scholarships, grants, and payment plans. Contact our financial aid office for more information about eligibility and application processes.</p>
-              </div>
-            </div>
-            
-            <div className="faq-item">
-              <button className="faq-question">
-                Can I schedule a campus tour?
-                <span className="faq-icon">+</span>
-              </button>
-              <div className="faq-answer">
-                <p>Absolutely! We encourage prospective students to visit our campus. You can schedule a tour through our website or by contacting our admissions office.</p>
-              </div>
-            </div>
-            
-            <div className="faq-item">
-              <button className="faq-question">
-                What support services do you offer to students?
-                <span className="faq-icon">+</span>
-              </button>
-              <div className="faq-answer">
-                <p>We provide comprehensive support services including academic advising, career counseling, tutoring, and mental health resources to ensure our students' success.</p>
-              </div>
-            </div>
+            ))}
           </div>
-          
           <div className="cta-box">
             <h3>Still have questions?</h3>
             <p>Can't find what you're looking for? Our team is here to help!</p>
-            <a href="#contact-form" className="cta-button">Contact Us Now</a>
           </div>
         </div>
       </section>

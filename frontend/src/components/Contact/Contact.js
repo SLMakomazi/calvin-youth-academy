@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { FaMapMarkerAlt, FaPhoneAlt, FaEnvelope, FaPaperPlane, FaCheck, FaFacebookF, FaTwitter, FaLinkedinIn, FaInstagram } from 'react-icons/fa';
+import { FaMapMarkerAlt, FaPhoneAlt, FaEnvelope, FaClock, FaPaperPlane } from 'react-icons/fa';
 import './Contact.css';
 
 const Contact = () => {
@@ -10,8 +10,7 @@ const Contact = () => {
     message: ''
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isSubmitted, setIsSubmitted] = useState(false);
-  const [errors, setErrors] = useState({});
+  const [submitStatus, setSubmitStatus] = useState(null);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -19,75 +18,63 @@ const Contact = () => {
       ...prev,
       [name]: value
     }));
-    
-    // Clear error when user types
-    if (errors[name]) {
-      setErrors(prev => ({
-        ...prev,
-        [name]: ''
-      }));
-    }
   };
 
-  const validateForm = () => {
-    const newErrors = {};
-    if (!formData.name.trim()) newErrors.name = 'Name is required';
-    if (!formData.email.trim()) {
-      newErrors.email = 'Email is required';
-    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
-      newErrors.email = 'Email is invalid';
-    }
-    if (!formData.subject.trim()) newErrors.subject = 'Subject is required';
-    if (!formData.message.trim()) newErrors.message = 'Message is required';
-    
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
-  };
-
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    
-    if (!validateForm()) return;
-    
     setIsSubmitting(true);
     
-    // Simulate API call
-    setTimeout(() => {
-      console.log('Form submitted:', formData);
-      setIsSubmitting(false);
-      setIsSubmitted(true);
-      
-      // Reset form after submission
-      setFormData({
-        name: '',
-        email: '',
-        subject: '',
-        message: ''
+    try {
+      const response = await fetch('http://localhost:5000/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          ...formData,
+          department: 'General Inquiry'
+        }),
       });
       
-      // Hide success message after 5 seconds
-      setTimeout(() => {
-        setIsSubmitted(false);
-      }, 5000);
-    }, 1500);
+      const data = await response.json();
+      
+      if (data.success) {
+        setSubmitStatus({ type: 'success', message: data.message });
+        setFormData({
+          name: '',
+          email: '',
+          subject: '',
+          message: ''
+        });
+      } else {
+        setSubmitStatus({ type: 'error', message: data.error || 'Failed to send message' });
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      setSubmitStatus({ type: 'error', message: 'An error occurred. Please try again.' });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
-    <section id="contact" className="contact-section">
-      <div className="container">
-        <div className="section-header">
-          <h2 className="section-title">Get In Touch</h2>
-          <p className="section-subtitle">We'd love to hear from you. Send us a message and we'll respond as soon as possible.</p>
-        </div>
-        
-        <div className="contact-container">
+    <div className="contact-container">
+      <div className="section-header">
+        <h2 className="section-title">Contact Us</h2>
+        <p className="section-subtitle">Have questions? Get in touch with us. Our team is here to help you with any inquiries.</p>
+      </div>
+      
+      <div className="contact-content">
+        {/* Left Section - Contact Info */}
+        <div className="contact-section1">
+          <h3>Our Information</h3>
           <div className="contact-info">
             <div className="info-item">
               <div className="info-icon">
                 <FaMapMarkerAlt />
               </div>
               <div className="info-content">
-                <h3>Our Location</h3>
+                <h4>Our Location</h4>
                 <p>123 Academy Street, Tech City, 10001</p>
               </div>
             </div>
@@ -97,9 +84,8 @@ const Contact = () => {
                 <FaPhoneAlt />
               </div>
               <div className="info-content">
-                <h3>Phone Number</h3>
+                <h4>Phone Number</h4>
                 <p>+1 234 567 8900</p>
-                <p>+1 234 567 8901</p>
               </div>
             </div>
             
@@ -108,103 +94,96 @@ const Contact = () => {
                 <FaEnvelope />
               </div>
               <div className="info-content">
-                <h3>Email Address</h3>
+                <h4>Email Address</h4>
                 <p>info@calvinyouthacademy.com</p>
-                <p>admissions@calvinyouthacademy.com</p>
               </div>
             </div>
             
-            <div className="social-links">
-              <a href="#" className="social-icon" aria-label="Facebook">
-                <FaFacebookF />
-              </a>
-              <a href="#" className="social-icon" aria-label="Twitter">
-                <FaTwitter />
-              </a>
-              <a href="#" className="social-icon" aria-label="LinkedIn">
-                <FaLinkedinIn />
-              </a>
-              <a href="#" className="social-icon" aria-label="Instagram">
-                <FaInstagram />
-              </a>
+            <div className="info-item">
+              <div className="info-icon">
+                <FaClock />
+              </div>
+              <div className="info-content">
+                <h4>Working Hours</h4>
+                <p>Monday - Friday: 8:00 AM - 6:00 PM</p>
+                <p>Saturday: 9:00 AM - 2:00 PM</p>
+                <p>Sunday: Closed</p>
+              </div>
             </div>
           </div>
-          
+        </div>
+
+        {/* Right Section - Contact Form */}
+        <div className="contact-section2">
           <div className="contact-form-container">
-            {isSubmitted ? (
-              <div className="success-message">
-                <FaCheck className="success-icon" />
-                <h3>Thank You!</h3>
-                <p>Your message has been sent successfully. We'll get back to you soon!</p>
+            <h3>Send Us a Message</h3>
+            {submitStatus && (
+              <div className={`alert ${submitStatus.type}`}>
+                {submitStatus.message}
               </div>
-            ) : (
-              <form onSubmit={handleSubmit} className="contact-form">
-                <div className="form-group">
-                  <input
-                    type="text"
-                    name="name"
-                    placeholder="Your Name"
-                    value={formData.name}
-                    onChange={handleChange}
-                    className={`form-control ${errors.name ? 'is-invalid' : ''}`}
-                  />
-                  {errors.name && <span className="error-message">{errors.name}</span>}
-                </div>
-                
-                <div className="form-group">
-                  <input
-                    type="email"
-                    name="email"
-                    placeholder="Your Email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    className={`form-control ${errors.email ? 'is-invalid' : ''}`}
-                  />
-                  {errors.email && <span className="error-message">{errors.email}</span>}
-                </div>
-                
-                <div className="form-group">
-                  <input
-                    type="text"
-                    name="subject"
-                    placeholder="Subject"
-                    value={formData.subject}
-                    onChange={handleChange}
-                    className={`form-control ${errors.subject ? 'is-invalid' : ''}`}
-                  />
-                  {errors.subject && <span className="error-message">{errors.subject}</span>}
-                </div>
-                
-                <div className="form-group">
-                  <textarea
-                    name="message"
-                    placeholder="Your Message"
-                    rows="5"
-                    value={formData.message}
-                    onChange={handleChange}
-                    className={`form-control ${errors.message ? 'is-invalid' : ''}`}
-                  ></textarea>
-                  {errors.message && <span className="error-message">{errors.message}</span>}
-                </div>
-                
-                <button 
-                  type="submit" 
-                  className="submit-btn"
-                  disabled={isSubmitting}
-                >
-                  {isSubmitting ? 'Sending...' : (
-                    <>
-                      <span>Send Message</span>
-                      <FaPaperPlane className="send-icon" />
-                    </>
-                  )}
-                </button>
-              </form>
             )}
+            <form onSubmit={handleSubmit}>
+              <div className="form-group">
+                <input
+                  type="text"
+                  name="name"
+                  placeholder="Your Name"
+                  value={formData.name}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+              
+              <div className="form-group">
+                <input
+                  type="email"
+                  name="email"
+                  placeholder="Your Email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+              
+              <div className="form-group">
+                <input
+                  type="text"
+                  name="subject"
+                  placeholder="Subject"
+                  value={formData.subject}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+              
+              <div className="form-group">
+                <textarea
+                  name="message"
+                  placeholder="Your Message"
+                  rows="5"
+                  value={formData.message}
+                  onChange={handleChange}
+                  required
+                ></textarea>
+              </div>
+              
+              <button 
+                type="submit" 
+                className="submit-btn" 
+                disabled={isSubmitting}
+              >
+                {isSubmitting ? 'Sending...' : (
+                  <>
+                    <FaPaperPlane className="btn-icon" />
+                    Send Message
+                  </>
+                )}
+              </button>
+            </form>
           </div>
         </div>
       </div>
-    </section>
+    </div>
   );
 };
 

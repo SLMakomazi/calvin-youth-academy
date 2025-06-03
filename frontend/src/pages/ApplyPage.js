@@ -56,22 +56,22 @@ const ResponsiveNav = () => {
         <FaBook style={iconStyle} />
         <span>Courses</span>
       </Link>
-      <a href="#contact" style={linkStyle}>
+      <Link to="/contact" style={linkStyle}>
         <FaEnvelope style={iconStyle} />
         <span>Contact</span>
-      </a>
+      </Link>
     </div>
   );
 };
 
 const ApplyPage = () => {
+  const { register, handleSubmit, formState: { errors }, watch, reset } = useForm();
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState(null);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [filePreviews, setFilePreviews] = useState({});
   const [fileErrors, setFileErrors] = useState({});
   
-  const { register, handleSubmit, formState: { errors }, watch } = useForm();
-
   const provinces = [
     'Eastern Cape', 'Free State', 'Gauteng', 'KwaZulu-Natal', 
     'Limpopo', 'Mpumalanga', 'North West', 'Northern Cape', 'Western Cape'
@@ -93,6 +93,46 @@ const ApplyPage = () => {
   const referralSources = [
     'Social Media', 'Referral', 'School Visit', 'Website', 'Other'
   ];
+
+  const onSubmit = async (data) => {
+    setIsSubmitting(true);
+    setSubmitStatus(null);
+    setIsSubmitted(false);
+    
+    try {
+      const response = await fetch('http://localhost:5000/api/apply', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      });
+      
+      const result = await response.json();
+      
+      if (response.ok) {
+        setSubmitStatus({ type: 'success', message: result.message || 'Application submitted successfully!' });
+        setIsSubmitted(true);
+        // Reset form
+        reset();
+        setFilePreviews({});
+        setFileErrors({});
+      } else {
+        setSubmitStatus({ 
+          type: 'error', 
+          message: result.error || 'Failed to submit application. Please try again.' 
+        });
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      setSubmitStatus({ 
+        type: 'error', 
+        message: 'An error occurred while submitting the application. Please try again later.' 
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   const handleFileChange = (e, fieldName) => {
     const file = e.target.files[0];
@@ -141,19 +181,6 @@ const ApplyPage = () => {
     }
   };
 
-  const onSubmit = (data) => {
-    if (isSubmitting) return;
-    
-    setIsSubmitting(true);
-    
-    // Simulate form submission
-    setTimeout(() => {
-      console.log('Form submitted:', data);
-      setIsSubmitted(true);
-      setIsSubmitting(false);
-    }, 1500);
-  };
-
   if (isSubmitted) {
     return (
       <div style={{ paddingBottom: '70px', paddingTop: '70px' }}>
@@ -185,7 +212,12 @@ const ApplyPage = () => {
         </h1>
         <p className="form-subtitle">Please fill in all required fields (*)</p>
         
-        <form onSubmit={handleSubmit(onSubmit)} className="application-form">
+        <form onSubmit={handleSubmit(onSubmit)} className="application-form" id="application-form">
+          {submitStatus && (
+            <div className={`alert ${submitStatus.type}`}>
+              {submitStatus.message}
+            </div>
+          )}
           {/* Section 1: Personal Details */}
           <section className="form-section">
             <h2>1. Personal Details</h2>
@@ -563,7 +595,7 @@ const ApplyPage = () => {
             <button 
               type="submit" 
               className="submit-btn" 
-              disabled={true}
+              disabled={isSubmitting}
             >
               {isSubmitting ? 'Submitting...' : 'Submit Application'}
             </button>
