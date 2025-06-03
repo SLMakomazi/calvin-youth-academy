@@ -60,13 +60,12 @@ const Contact = () => {
   return (
     <div className="contact-container">
       <div className="contact-content">
-        <div className="contact-section">
+        {/* Left Section - Contact Info */}
+        <div className="contact-section1">
           <h2>Get In Touch</h2>
           <p className="section-subtitle">We'd love to hear from you. Send us a message and we'll respond as soon as possible.</p>
           
           <div className="contact-info">
-            <h3>Contact Information</h3>
-            
             <div className="info-item">
               <div className="info-icon">
                 <FaMapMarkerAlt />
@@ -111,7 +110,8 @@ const Contact = () => {
           </div>
         </div>
 
-        <div className="contact-section">
+        {/* Right Section - Contact Form */}
+        <div className="contact-section2">
           <div className="contact-form-container">
             <h3>Send Us a Message</h3>
             {submitStatus && (
@@ -164,7 +164,11 @@ const Contact = () => {
                 ></textarea>
               </div>
               
-              <button type="submit" className="submit-btn" disabled={isSubmitting}>
+              <button 
+                type="submit" 
+                className="submit-btn" 
+                disabled={isSubmitting}
+              >
                 {isSubmitting ? 'Sending...' : (
                   <>
                     <FaPaperPlane className="btn-icon" />
