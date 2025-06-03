@@ -122,7 +122,9 @@ const Testimonials = () => {
   return (
     <section className="testimonials-section">
       <div className="container">
-        <h2 className="section-title">What Our Students Say</h2>
+        <div className="section-header">
+          <h2 className="section-title">What Our Students Say</h2>
+        </div>
         <div 
           className="testimonials-container"
           onTouchStart={handleTouchStart}

@@ -80,7 +80,11 @@ const Partnerships = () => {
   
   return (
     <section className="partnerships-section">
+      <div className="section-header">
       <h2 className="section-title">Our Valued Partners</h2>
+      <span className="section-subtitle">Empowering Youth through Technology</span>
+      </div>
+      
       <div className="partnerships-slider" ref={sliderRef}>
         <div className="partnerships-slider-content" ref={sliderContentRef}>
           {[...partnerships, ...partnerships].map((partner, index) => (

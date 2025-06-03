@@ -57,9 +57,9 @@ const Courses = () => {
     <section className="courses-section" id="courses">
       <div className="container">
         <div className="section-header">
-          <h2>Our Courses</h2>
-          <div className="divider"></div>
-          <p className="section-subtitle">MICT SETA Accredited Qualifications</p>
+          
+          <h2 className="section-title">Our Courses</h2>
+          <span className="section-subtitle">MICT SETA Accredited Qualifications</span>
         </div>
 
         <div className="courses-grid">

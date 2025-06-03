@@ -250,7 +250,9 @@
   .section-title {
     font-size: 1.8rem;
     margin-bottom: 2rem;
+    text-align: center;
   }
+
 }
 
 @media (max-width: 480px) {
@@ -260,6 +262,7 @@
   
   .section-title {
     font-size: 1.6rem;
+    text-align: center;
   }
   
   .testimonial-text {

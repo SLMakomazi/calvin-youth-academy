@@ -10,7 +10,7 @@ const About = () => {
         <div className="section-header">
           
           <h2 className="section-title">Empowering South Africa's Digital Future</h2>
-          <div className="divider"></div>
+          
           <span className="section-subtitle">Who We Are</span>
         </div>
         
