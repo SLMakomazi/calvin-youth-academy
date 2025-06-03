@@ -20,6 +20,14 @@
   text-align: center;
   position: relative;
   overflow: hidden;
+  padding-top: 120px;
+}
+
+@media (max-width: 768px) {
+  .contact-hero {
+    padding-top: 100px;
+    padding-bottom: 100px;
+  }
 }
 
 .contact-hero::before {
@@ -572,21 +580,124 @@ textarea.form-control {
   transform: translateY(0);
 }
 
-/* Animations */
-@keyframes bounceIn {
-  0% {
-    opacity: 0;
-    transform: scale(0.3);
+/* Floating Navigation */
+.floating-nav {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 50px;
+  padding: 10px 15px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(10px);
+}
+
+.floating-nav-content {
+  display: flex;
+  gap: 5px;
+  overflow: hidden;
+}
+
+.nav-icon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #2d3748;
+  text-decoration: none;
+  padding: 8px 12px;
+  border-radius: 30px;
+  transition: all 0.3s ease;
+  min-width: 60px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.nav-icon:hover {
+  background: #f7fafc;
+  color: #1a365d;
+  transform: translateY(-2px);
+}
+
+.nav-icon svg {
+  font-size: 1.2rem;
+  margin-bottom: 4px;
+}
+
+.nav-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #1a365d;
+  color: white;
+  border: none;
+  cursor: pointer;
+  flex-shrink: 0;
+  padding: 0;
+}
+
+.nav-toggle:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.5);
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .floating-nav {
+    flex-direction: column;
+    top: auto;
+    bottom: 20px;
+    right: 20px;
+    padding: 10px;
   }
-  50% {
-    opacity: 0.9;
-    transform: scale(1.1);
+  
+  .floating-nav-content {
+    flex-direction: column;
+    width: 100%;
   }
-  80% {
-    transform: scale(0.89);
+  
+  .nav-icon {
+    padding: 8px 4px;
+    min-width: 40px;
+    width: 100%;
   }
-  100% {
-    transform: scale(1);
+  
+  .nav-icon span {
+    font-size: 0.7rem;
+  }
+}
+
+/* Animation for the navigation items */
+.floating-nav-content {
+  display: flex;
+  gap: 10px;
+}
+
+@media (max-width: 768px) {
+  .floating-nav-content {
+    flex-direction: column;
+    align-items: flex-end;
+    margin-bottom: 10px;
+  }
+}
+
+/* Ensure content isn't hidden behind the fixed nav */
+.contact-hero {
+  padding-top: 120px;
+}
+
+@media (max-width: 768px) {
+  .contact-hero {
+    padding-top: 100px;
+    padding-bottom: 100px;
   }
 }
 
@@ -684,5 +795,23 @@ textarea.form-control {
   
   .contact-method {
     width: 100%;
+  }
+}
+
+/* Animations */
+@keyframes bounceIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.3);
+  }
+  50% {
+    opacity: 0.9;
+    transform: scale(1.1);
+  }
+  80% {
+    transform: scale(0.89);
+  }
+  100% {
+    transform: scale(1);
   }
 }

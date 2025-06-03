@@ -3,7 +3,9 @@ import { FaMapMarkerAlt, FaPhoneAlt, FaEnvelope, FaClock, FaWhatsapp, FaTelegram
 import { MdEmail } from 'react-icons/md';
 import { IoMdSend } from 'react-icons/io';
 import { FiCheckCircle } from 'react-icons/fi';
-import { motion } from 'framer-motion';
+import { FaHome, FaGraduationCap, FaFileAlt, FaTimes } from 'react-icons/fa';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Link } from 'react-router-dom';
 import './ContactPage.css';
 
 const ContactPage = () => {
@@ -16,6 +18,7 @@ const ContactPage = () => {
     message: '',
     department: 'general'
   });
+  const [isNavOpen, setIsNavOpen] = useState(false);
 
   const departments = [
     { id: 'general', name: 'General Inquiries' },
@@ -88,6 +91,54 @@ const ContactPage = () => {
 
   return (
     <div className="contact-page">
+      {/* Floating Navigation with AnimatePresence */}
+      <AnimatePresence>
+        <motion.div 
+          className="floating-nav"
+          initial={{ y: -100, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          exit={{ y: -100, opacity: 0 }}
+          transition={{ duration: 0.5, type: 'spring', damping: 25 }}
+        >
+          {isNavOpen && (
+            <motion.div 
+              className="floating-nav-content"
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: 20 }}
+              transition={{ duration: 0.3 }}
+            >
+              <Link to="/" className="nav-icon" title="Home" onClick={() => setIsNavOpen(false)}>
+                <FaHome />
+                <span>Home</span>
+              </Link>
+              <Link to="/courses" className="nav-icon" title="Courses" onClick={() => setIsNavOpen(false)}>
+                <FaGraduationCap />
+                <span>Courses</span>
+              </Link>
+              <Link to="/apply" className="nav-icon" title="Apply Now" onClick={() => setIsNavOpen(false)}>
+                <FaFileAlt />
+                <span>Apply</span>
+              </Link>
+            </motion.div>
+          )}
+          
+          <motion.button 
+            className="nav-toggle"
+            onClick={() => setIsNavOpen(!isNavOpen)}
+            aria-label={isNavOpen ? 'Close navigation' : 'Open navigation'}
+            whileTap={{ scale: 0.9 }}
+          >
+            <motion.span
+              animate={{ rotate: isNavOpen ? 90 : 0 }}
+              transition={{ duration: 0.3 }}
+            >
+              <FaTimes />
+            </motion.span>
+          </motion.button>
+        </motion.div>
+      </AnimatePresence>
+
       {/* Hero Section */}
       <section className="contact-hero">
         <div className="container">
