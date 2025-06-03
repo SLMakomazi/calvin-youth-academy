@@ -1,5 +1,7 @@
 import React from 'react';
 import Navbar from '../components/Navbar/Navbar';
+import ScrollToTop from '../components/ScrollToTop';
+import Footer from '../components/Footer/Footer';
 import Hero from '../components/Hero/Hero';
 import About from '../components/About/About';
 import Courses from '../components/Courses/Courses';
@@ -12,6 +14,7 @@ const Home = () => {
   return (
     <div className="home">
       <Navbar />
+      <ScrollToTop />
       <main>
         <Hero />
         <About />
@@ -20,6 +23,7 @@ const Home = () => {
         <Contact />
         <Partnerships />
       </main>
+      <Footer />
     </div>
   );
 };
