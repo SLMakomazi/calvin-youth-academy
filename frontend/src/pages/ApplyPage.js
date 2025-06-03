@@ -56,10 +56,10 @@ const ResponsiveNav = () => {
         <FaBook style={iconStyle} />
         <span>Courses</span>
       </Link>
-      <a href="#contact" style={linkStyle}>
+      <Link to="/contact" style={linkStyle}>
         <FaEnvelope style={iconStyle} />
         <span>Contact</span>
-      </a>
+      </Link>
     </div>
   );
 };

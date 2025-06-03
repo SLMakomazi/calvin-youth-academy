@@ -19,6 +19,7 @@ const ContactPage = () => {
     department: 'general'
   });
   const [isNavOpen, setIsNavOpen] = useState(false);
+  const [activeFaq, setActiveFaq] = useState(null);
 
   const departments = [
     { id: 'general', name: 'General Inquiries', icon: <FaHome /> },
@@ -66,6 +67,29 @@ const ContactPage = () => {
       [name]: value
     }));
   };
+
+  const toggleFaq = (index) => {
+    setActiveFaq(activeFaq === index ? null : index);
+  };
+
+  const faqs = [
+    {
+      question: 'What are your admission requirements?',
+      answer: 'Our admission requirements vary by program. Generally, we require a high school diploma or equivalent, and some programs may have additional prerequisites. Please visit our Admissions page for specific requirements.'
+    },
+    {
+      question: 'Do you offer financial aid or scholarships?',
+      answer: 'Yes, we offer various financial aid options including scholarships, grants, and payment plans. Contact our financial aid office for more information about eligibility and application processes.'
+    },
+    {
+      question: 'Can I schedule a campus tour?',
+      answer: 'Absolutely! We encourage prospective students to visit our campus. You can schedule a tour through our website or by contacting our admissions office.'
+    },
+    {
+      question: 'What support services do you offer to students?',
+      answer: 'We provide comprehensive support services including academic advising, career counseling, tutoring, and mental health resources to ensure our students\' success.'
+    }
+  ];
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -336,51 +360,34 @@ const ContactPage = () => {
           </div>
           
           <div className="faq-container">
-            <div className="faq-item">
-              <button className="faq-question">
-                What are your admission requirements?
-                <span className="faq-icon">+</span>
-              </button>
-              <div className="faq-answer">
-                <p>Our admission requirements vary by program. Generally, we require a high school diploma or equivalent, and some programs may have additional prerequisites. Please visit our Admissions page for specific requirements.</p>
+            {faqs.map((faq, index) => (
+              <div className={`faq-item ${activeFaq === index ? 'active' : ''}`} key={index}>
+                <button 
+                  className="faq-question"
+                  onClick={() => toggleFaq(index)}
+                  aria-expanded={activeFaq === index}
+                  aria-controls={`faq-answer-${index}`}
+                >
+                  {faq.question}
+                  <span className="faq-icon">{activeFaq === index ? '−' : '+'}</span>
+                </button>
+                <div 
+                  id={`faq-answer-${index}`}
+                  className="faq-answer"
+                  style={{
+                    maxHeight: activeFaq === index ? '500px' : '0',
+                    opacity: activeFaq === index ? '1' : '0',
+                    padding: activeFaq === index ? '1rem 0' : '0 1rem'
+                  }}
+                >
+                  <p>{faq.answer}</p>
+                </div>
               </div>
-            </div>
-            
-            <div className="faq-item">
-              <button className="faq-question">
-                Do you offer financial aid or scholarships?
-                <span className="faq-icon">+</span>
-              </button>
-              <div className="faq-answer">
-                <p>Yes, we offer various financial aid options including scholarships, grants, and payment plans. Contact our financial aid office for more information about eligibility and application processes.</p>
-              </div>
-            </div>
-            
-            <div className="faq-item">
-              <button className="faq-question">
-                Can I schedule a campus tour?
-                <span className="faq-icon">+</span>
-              </button>
-              <div className="faq-answer">
-                <p>Absolutely! We encourage prospective students to visit our campus. You can schedule a tour through our website or by contacting our admissions office.</p>
-              </div>
-            </div>
-            
-            <div className="faq-item">
-              <button className="faq-question">
-                What support services do you offer to students?
-                <span className="faq-icon">+</span>
-              </button>
-              <div className="faq-answer">
-                <p>We provide comprehensive support services including academic advising, career counseling, tutoring, and mental health resources to ensure our students' success.</p>
-              </div>
-            </div>
+            ))}
           </div>
-          
           <div className="cta-box">
             <h3>Still have questions?</h3>
             <p>Can't find what you're looking for? Our team is here to help!</p>
-            <a href="#contact-form" className="cta-button">Contact Us Now</a>
           </div>
         </div>
       </section>
