@@ -3,8 +3,9 @@ import Navbar from '../components/Navbar/Navbar';
 import Hero from '../components/Hero/Hero';
 import About from '../components/About/About';
 import Courses from '../components/Courses/Courses';
-import Partnerships from '../components/Partnerships/Partnerships';
 import Testimonials from '../components/Testimonials/Testimonials';
+import Contact from '../components/Contact/Contact';
+import Partnerships from '../components/Partnerships/Partnerships';
 import './Home.css';
 
 const Home = () => {
@@ -16,6 +17,7 @@ const Home = () => {
         <About />
         <Courses />
         <Testimonials />
+        <Contact />
         <Partnerships />
       </main>
     </div>
