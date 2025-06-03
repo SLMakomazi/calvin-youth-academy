@@ -1,5 +1,5 @@
 import React from 'react';
-import { FaFacebook, FaTwitter, FaInstagram, FaLinkedin, FaMapMarkerAlt, FaPhone, FaEnvelope } from 'react-icons/fa';
+import { FaFacebook, FaTwitter, FaInstagram, FaLinkedin} from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import './Footer.css';
 
@@ -52,28 +52,6 @@ const Footer = () => {
               <li><Link to="/courses/arts">Arts & Humanities</Link></li>
               <li><Link to="/courses/science">Pure Sciences</Link></li>
             </ul>
-          </div>
-        </div>
-
-        {/* Contact Section */}
-        <div className="footer-contact-section">
-          <h4 className="footer-title">Contact Us</h4>
-          <div className="footer-contact-grid">
-            <div className="contact-item">
-              <FaMapMarkerAlt className="contact-icon" />
-              <span>123 Academy Street, Tech City, 10001</span>
-            </div>
-            <div className="contact-item">
-              <FaPhone className="contact-icon" />
-              <div className="phone-numbers">
-                <a href="tel:+1234567890">+1 (234) 567-890</a>
-                <a href="tel:+1987654321">+1 (987) 654-321</a>
-              </div>
-            </div>
-            <div className="contact-item">
-              <FaEnvelope className="contact-icon" />
-              <a href="mailto:info@calvinyouthacademy.com">info@calvinyouthacademy.com</a>
-            </div>
           </div>
         </div>
 

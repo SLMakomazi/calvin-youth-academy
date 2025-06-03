@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { FaMapMarkerAlt, FaPhoneAlt, FaEnvelope, FaClock, FaWhatsapp, FaTelegram, FaFacebookMessenger } from 'react-icons/fa';
+import { FaHome, FaGraduationCap, FaFileAlt, FaMapMarkerAlt, FaPhoneAlt, FaEnvelope, FaClock, FaWhatsapp, FaTelegram, FaFacebookMessenger } from 'react-icons/fa';
 import { MdEmail } from 'react-icons/md';
 import { IoMdSend } from 'react-icons/io';
 import { FiCheckCircle } from 'react-icons/fi';
-import { FaHome, FaGraduationCap, FaFileAlt, FaTimes } from 'react-icons/fa';
+import { FaTimes } from 'react-icons/fa';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import './ContactPage.css';
@@ -21,9 +21,9 @@ const ContactPage = () => {
   const [isNavOpen, setIsNavOpen] = useState(false);
 
   const departments = [
-    { id: 'general', name: 'General Inquiries' },
-    { id: 'admissions', name: 'Admissions' },
-    { id: 'support', name: 'Technical Support' },
+    { id: 'general', name: 'General Inquiries', icon: <FaHome /> },
+    { id: 'admissions', name: 'Admissions', icon: <FaGraduationCap /> },
+    { id: 'support', name: 'Technical Support', icon: <FaFileAlt /> },
     { id: 'partnerships', name: 'Partnerships' },
     { id: 'careers', name: 'Careers' }
   ];
@@ -245,14 +245,15 @@ const ContactPage = () => {
           </div>
           
           <div className="form-container">
-            <div className="tabs">
-              {departments.map(dept => (
+            <div className="department-tabs">
+              {departments.map((dept) => (
                 <button
                   key={dept.id}
-                  className={`tab ${activeTab === dept.id ? 'active' : ''}`}
+                  className={`tab-btn ${activeTab === dept.id ? 'active' : ''}`}
                   onClick={() => setActiveTab(dept.id)}
                 >
-                  {dept.name}
+                  <span className="tab-icon">{dept.icon}</span>
+                  <span className="tab-text">{dept.name}</span>
                 </button>
               ))}
             </div>

@@ -65,13 +65,10 @@ const ResponsiveNav = () => {
 };
 
 const ApplyPage = () => {
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isSubmitted, setIsSubmitted] = useState(false);
-  const [filePreviews, setFilePreviews] = useState({});
-  const [fileErrors, setFileErrors] = useState({});
-  
   const { register, handleSubmit, formState: { errors }, watch } = useForm();
-
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState(null);
+  
   const provinces = [
     'Eastern Cape', 'Free State', 'Gauteng', 'KwaZulu-Natal', 
     'Limpopo', 'Mpumalanga', 'North West', 'Northern Cape', 'Western Cape'
@@ -93,6 +90,40 @@ const ApplyPage = () => {
   const referralSources = [
     'Social Media', 'Referral', 'School Visit', 'Website', 'Other'
   ];
+
+  const onSubmit = async (data) => {
+    setIsSubmitting(true);
+    setSubmitStatus(null);
+    
+    try {
+      const response = await fetch('http://localhost:5000/api/apply', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      });
+      
+      const result = await response.json();
+      
+      if (result.success) {
+        setSubmitStatus({ type: 'success', message: result.message });
+        // Reset form
+        document.getElementById('application-form').reset();
+      } else {
+        setSubmitStatus({ type: 'error', message: result.error || 'Failed to submit application' });
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      setSubmitStatus({ type: 'error', message: 'An error occurred. Please try again.' });
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [filePreviews, setFilePreviews] = useState({});
+  const [fileErrors, setFileErrors] = useState({});
 
   const handleFileChange = (e, fieldName) => {
     const file = e.target.files[0];
@@ -141,19 +172,6 @@ const ApplyPage = () => {
     }
   };
 
-  const onSubmit = (data) => {
-    if (isSubmitting) return;
-    
-    setIsSubmitting(true);
-    
-    // Simulate form submission
-    setTimeout(() => {
-      console.log('Form submitted:', data);
-      setIsSubmitted(true);
-      setIsSubmitting(false);
-    }, 1500);
-  };
-
   if (isSubmitted) {
     return (
       <div style={{ paddingBottom: '70px', paddingTop: '70px' }}>
@@ -185,7 +203,7 @@ const ApplyPage = () => {
         </h1>
         <p className="form-subtitle">Please fill in all required fields (*)</p>
         
-        <form onSubmit={handleSubmit(onSubmit)} className="application-form">
+        <form onSubmit={handleSubmit(onSubmit)} className="application-form" id="application-form">
           {/* Section 1: Personal Details */}
           <section className="form-section">
             <h2>1. Personal Details</h2>
@@ -563,7 +581,7 @@ const ApplyPage = () => {
             <button 
               type="submit" 
               className="submit-btn" 
-              disabled={true}
+              disabled={isSubmitting}
             >
               {isSubmitting ? 'Submitting...' : 'Submit Application'}
             </button>
