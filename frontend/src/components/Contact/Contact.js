@@ -59,12 +59,15 @@ const Contact = () => {
 
   return (
     <div className="contact-container">
+      <div className="section-header">
+        <h2 className="section-title">Contact Us</h2>
+        <p className="section-subtitle">Have questions? Get in touch with us. Our team is here to help you with any inquiries.</p>
+      </div>
+      
       <div className="contact-content">
         {/* Left Section - Contact Info */}
         <div className="contact-section1">
-          <h2>Get In Touch</h2>
-          <p className="section-subtitle">We'd love to hear from you. Send us a message and we'll respond as soon as possible.</p>
-          
+          <h3>Our Information</h3>
           <div className="contact-info">
             <div className="info-item">
               <div className="info-icon">
