@@ -33,7 +33,6 @@ const ContactPage = () => {
     email: 'info@calvinyouthacademy.com',
     phone: '+1 234 567 8900',
     whatsapp: '+1 234 567 8901',
-    telegram: '@calvinyouth',
     messenger: 'm.me/calvinyouthacademy',
     hours: [
       'Monday - Friday: 8:00 AM - 6:00 PM',
@@ -206,31 +205,10 @@ const ContactPage = () => {
                 <a href={`mailto:${contactInfo.email}`} className="contact-method">
                   <MdEmail /> Email Us
                 </a>
-                <a href={`https://t.me/${contactInfo.telegram}`} className="contact-method">
-                  <FaTelegram /> Telegram
+                <a href={`https://m.me/${contactInfo.messenger.split('/').pop()}`} className="contact-method">
+                  <FaFacebookMessenger /> Messenger
                 </a>
               </div>
-            </motion.div>
-
-            <motion.div className="contact-card" variants={itemVariants}>
-              <div className="contact-icon">
-                <FaClock />
-              </div>
-              <h3>Working Hours</h3>
-              <ul className="hours-list">
-                {contactInfo.hours.map((hour, index) => (
-                  <li key={index}>{hour}</li>
-                ))}
-              </ul>
-              <button 
-                className="contact-method"
-                onClick={() => {
-                  // Add your Messenger URL here
-                  window.open('https://m.me/calvinyouthacademy', '_blank', 'noopener,noreferrer');
-                }}
-              >
-                <FaFacebookMessenger /> Chat with us
-              </button>
             </motion.div>
           </motion.div>
         </div>
