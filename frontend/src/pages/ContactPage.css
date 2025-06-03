@@ -215,6 +215,112 @@
   line-height: 0;
 }
 
+/* Department Tabs */
+.department-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-bottom: 2rem;
+  border-bottom: 1px solid #e2e8f0;
+  padding-bottom: 1rem;
+}
+
+.tab-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.25rem;
+  background-color: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  color: #4a5568;
+  font-weight: 500;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.tab-btn:hover {
+  background-color: #edf2f7;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  color: #1a365d;
+  border-color: #cbd5e0;
+}
+
+.tab-btn.active {
+  background: linear-gradient(135deg, #4299e1, #1a365d);
+  color: white;
+  border-color: transparent;
+  box-shadow: 0 4px 12px rgba(66, 153, 225, 0.2);
+}
+
+.tab-btn.active .tab-icon {
+  color: white;
+}
+
+.tab-btn::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 3px;
+  background-color: #1a365d;
+  transition: width 0.3s ease;
+}
+
+.tab-btn:hover::before {
+  width: 100%;
+}
+
+.tab-btn.active::before {
+  width: 100%;
+  background-color: white;
+  height: 2px;
+}
+
+.tab-icon {
+  font-size: 1.1rem;
+  color: #4a5568;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tab-text {
+  white-space: nowrap;
+}
+
+/* Responsive adjustments */
+@media (max-width: 640px) {
+  .department-tabs {
+    overflow-x: auto;
+    padding-bottom: 0.5rem;
+    margin-left: -0.5rem;
+    margin-right: -0.5rem;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+  }
+  
+  .department-tabs::-webkit-scrollbar {
+    height: 6px;
+  }
+  
+  .department-tabs::-webkit-scrollbar-thumb {
+    background-color: #cbd5e0;
+    border-radius: 3px;
+  }
+  
+  .tab-btn {
+    padding: 0.6rem 1rem;
+    font-size: 0.9rem;
+  }
+}
+
 /* Contact Form Section */
 .contact-form-section {
   padding: 5rem 0;

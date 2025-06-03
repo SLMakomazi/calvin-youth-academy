@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { FaHome, FaGraduationCap, FaFileAlt, FaMapMarkerAlt, FaPhoneAlt, FaEnvelope, FaClock, FaWhatsapp, FaTelegram, FaFacebookMessenger } from 'react-icons/fa';
+import { FaHome, FaGraduationCap, FaFileAlt, FaMapMarkerAlt, FaPhoneAlt, FaEnvelope, FaWhatsapp, FaFacebookMessenger } from 'react-icons/fa';
 import { MdEmail } from 'react-icons/md';
 import { IoMdSend } from 'react-icons/io';
 import { FiCheckCircle } from 'react-icons/fi';
