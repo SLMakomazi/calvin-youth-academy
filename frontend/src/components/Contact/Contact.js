@@ -58,12 +58,12 @@ const Contact = () => {
   };
 
   return (
-    <section id="contact" className="contact-section">
-      <div className="container">
-        <h2 className="section-title">Get In Touch</h2>
-        <p className="section-subtitle">We'd love to hear from you</p>
-        
-        <div className="contact-container">
+    <div className="contact-container">
+      <div className="contact-content">
+        <div className="contact-section">
+          <h2>Get In Touch</h2>
+          <p className="section-subtitle">We'd love to hear from you. Send us a message and we'll respond as soon as possible.</p>
+          
           <div className="contact-info">
             <h3>Contact Information</h3>
             
@@ -109,8 +109,10 @@ const Contact = () => {
               </div>
             </div>
           </div>
-          
-          <div className="contact-form">
+        </div>
+
+        <div className="contact-section">
+          <div className="contact-form-container">
             <h3>Send Us a Message</h3>
             {submitStatus && (
               <div className={`alert ${submitStatus.type}`}>
@@ -174,7 +176,7 @@ const Contact = () => {
           </div>
         </div>
       </div>
-    </section>
+    </div>
   );
 };
 

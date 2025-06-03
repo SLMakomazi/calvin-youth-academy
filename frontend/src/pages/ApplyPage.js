@@ -65,9 +65,12 @@ const ResponsiveNav = () => {
 };
 
 const ApplyPage = () => {
-  const { register, handleSubmit, formState: { errors }, watch } = useForm();
+  const { register, handleSubmit, formState: { errors }, watch, reset } = useForm();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState(null);
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [filePreviews, setFilePreviews] = useState({});
+  const [fileErrors, setFileErrors] = useState({});
   
   const provinces = [
     'Eastern Cape', 'Free State', 'Gauteng', 'KwaZulu-Natal', 
@@ -94,6 +97,7 @@ const ApplyPage = () => {
   const onSubmit = async (data) => {
     setIsSubmitting(true);
     setSubmitStatus(null);
+    setIsSubmitted(false);
     
     try {
       const response = await fetch('http://localhost:5000/api/apply', {
@@ -106,24 +110,29 @@ const ApplyPage = () => {
       
       const result = await response.json();
       
-      if (result.success) {
-        setSubmitStatus({ type: 'success', message: result.message });
+      if (response.ok) {
+        setSubmitStatus({ type: 'success', message: result.message || 'Application submitted successfully!' });
+        setIsSubmitted(true);
         // Reset form
-        document.getElementById('application-form').reset();
+        reset();
+        setFilePreviews({});
+        setFileErrors({});
       } else {
-        setSubmitStatus({ type: 'error', message: result.error || 'Failed to submit application' });
+        setSubmitStatus({ 
+          type: 'error', 
+          message: result.error || 'Failed to submit application. Please try again.' 
+        });
       }
     } catch (error) {
       console.error('Error:', error);
-      setSubmitStatus({ type: 'error', message: 'An error occurred. Please try again.' });
+      setSubmitStatus({ 
+        type: 'error', 
+        message: 'An error occurred while submitting the application. Please try again later.' 
+      });
     } finally {
       setIsSubmitting(false);
     }
   };
-
-  const [isSubmitted, setIsSubmitted] = useState(false);
-  const [filePreviews, setFilePreviews] = useState({});
-  const [fileErrors, setFileErrors] = useState({});
 
   const handleFileChange = (e, fieldName) => {
     const file = e.target.files[0];
@@ -204,6 +213,11 @@ const ApplyPage = () => {
         <p className="form-subtitle">Please fill in all required fields (*)</p>
         
         <form onSubmit={handleSubmit(onSubmit)} className="application-form" id="application-form">
+          {submitStatus && (
+            <div className={`alert ${submitStatus.type}`}>
+              {submitStatus.message}
+            </div>
+          )}
           {/* Section 1: Personal Details */}
           <section className="form-section">
             <h2>1. Personal Details</h2>
