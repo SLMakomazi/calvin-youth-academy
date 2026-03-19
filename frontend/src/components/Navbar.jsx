@@ -35,25 +35,25 @@ const Navbar = () => {
           scrolled ? 'bg-white shadow-lg' : 'bg-transparent'
         }`}
       >
-        <div className="container mx-auto px-6 py-4">
+        <div className="container mx-auto px-4 sm:px-6 py-4">
           <div className="flex items-center justify-between">
             {/* Logo - Left */}
             <motion.div
               whileHover={{ scale: 1.05 }}
-              className="flex items-center"
+              className="flex items-center flex-shrink-0"
             >
               <Link to="/" className="flex items-center">
                 <img 
                   src="/logo.png" 
                   alt="Calvin Youth Academy" 
-                  className="h-12 w-auto"
+                  className="h-10 sm:h-12 w-auto"
                 />
               </Link>
             </motion.div>
 
             {/* Navigation Links - Center */}
-            <div className="hidden md:flex items-center justify-center flex-1">
-              <div className="flex space-x-8">
+            <div className="hidden md:flex items-center justify-center flex-1 mx-4">
+              <div className="flex space-x-4 sm:space-x-6 lg:space-x-8">
                 {navLinks.map((link) => (
                   <motion.div
                     key={link.name}
@@ -62,7 +62,7 @@ const Navbar = () => {
                   >
                     <Link
                       to={link.href}
-                      className={`font-medium transition-colors duration-200 hover:text-secondary ${
+                      className={`font-medium text-sm sm:text-base transition-colors duration-200 hover:text-secondary whitespace-nowrap ${
                         scrolled ? 'text-text' : 'text-white'
                       } ${location.pathname === link.href ? 'text-secondary' : ''}`}
                     >
@@ -74,9 +74,9 @@ const Navbar = () => {
             </div>
 
             {/* CTA Button - Right */}
-            <div className="hidden md:block">
+            <div className="hidden md:block flex-shrink-0">
               <Link to="/apply">
-                <Button size="sm">
+                <Button size="sm" className="text-sm px-3 py-2 sm:px-4 sm:py-3">
                   Apply
                 </Button>
               </Link>
@@ -84,13 +84,13 @@ const Navbar = () => {
 
             {/* Mobile Menu Button */}
             <button
-              className="md:hidden"
+              className="md:hidden flex-shrink-0"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             >
               {mobileMenuOpen ? (
-                <X className={`w-6 h-6 ${scrolled ? 'text-text' : 'text-white'}`} />
+                <X className={`w-5 h-5 sm:w-6 sm:h-6 ${scrolled ? 'text-text' : 'text-white'}`} />
               ) : (
-                <Menu className={`w-6 h-6 ${scrolled ? 'text-text' : 'text-white'}`} />
+                <Menu className={`w-5 h-5 sm:w-6 sm:h-6 ${scrolled ? 'text-text' : 'text-white'}`} />
               )}
             </button>
           </div>

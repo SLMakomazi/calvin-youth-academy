@@ -36,4 +36,10 @@
   }
   
   .card-shadow {
-    @apply shadow-lg
+    @apply shadow-lg shadow-gray-100 hover:shadow-xl transition-shadow duration-300;
+  }
+  
+  .blob-shape {
+    @apply rounded-full blur-3xl opacity-30 absolute;
+  }
+}
