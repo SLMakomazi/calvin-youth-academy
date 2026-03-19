@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+// eslint-disable-next-line no-unused-vars
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
@@ -16,6 +17,12 @@ const Navbar = () => {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  // New motion animation for scroll indicator
+  const scrollIndicatorVariants = {
+    top: { scaleY: 0 },
+    scrolled: { scaleY: 1 }
+  };
 
   const navLinks = [
     { name: 'Home', href: '/' },
@@ -35,25 +42,33 @@ const Navbar = () => {
           scrolled ? 'bg-white shadow-lg' : 'bg-transparent'
         }`}
       >
-        <div className="container mx-auto px-4 sm:px-6 py-4">
-          <div className="flex items-center justify-between">
+        {/* Scroll Indicator */}
+        <motion.div
+          className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-secondary to-accent origin-left"
+          variants={scrollIndicatorVariants}
+          animate={scrolled ? 'scrolled' : 'top'}
+          transition={{ duration: 0.3 }}
+        />
+        
+        <div className="container mx-auto px-2 sm:px-4 py-4 overflow-hidden">
+          <div className="flex items-center justify-between min-w-0">
             {/* Logo - Left */}
             <motion.div
               whileHover={{ scale: 1.05 }}
-              className="flex items-center flex-shrink-0"
+              className="flex items-center flex-shrink-0 ml-1 sm:ml-4"
             >
               <Link to="/" className="flex items-center">
                 <img 
                   src="/logo.png" 
                   alt="Calvin Youth Academy" 
-                  className="h-10 sm:h-12 w-auto"
+                  className="h-7 sm:h-9 w-auto max-w-[120px]"
                 />
               </Link>
             </motion.div>
 
             {/* Navigation Links - Center */}
-            <div className="hidden md:flex items-center justify-center flex-1 mx-4">
-              <div className="flex space-x-4 sm:space-x-6 lg:space-x-8">
+            <div className="hidden md:flex items-center justify-center flex-1 mx-1 sm:mx-2 overflow-x-auto">
+              <div className="flex space-x-2 sm:space-x-4 lg:space-x-6 whitespace-nowrap">
                 {navLinks.map((link) => (
                   <motion.div
                     key={link.name}
@@ -62,7 +77,7 @@ const Navbar = () => {
                   >
                     <Link
                       to={link.href}
-                      className={`font-medium text-sm sm:text-base transition-colors duration-200 hover:text-secondary whitespace-nowrap ${
+                      className={`font-medium text-xs sm:text-sm lg:text-base transition-colors duration-200 hover:text-secondary whitespace-nowrap ${
                         scrolled ? 'text-text' : 'text-white'
                       } ${location.pathname === link.href ? 'text-secondary' : ''}`}
                     >
@@ -76,7 +91,7 @@ const Navbar = () => {
             {/* CTA Button - Right */}
             <div className="hidden md:block flex-shrink-0">
               <Link to="/apply">
-                <Button size="sm" className="text-sm px-3 py-2 sm:px-4 sm:py-3">
+                <Button size="sm" className="text-xs sm:text-sm px-1 sm:px-3 py-1 sm:py-2">
                   Apply
                 </Button>
               </Link>
@@ -84,13 +99,13 @@ const Navbar = () => {
 
             {/* Mobile Menu Button */}
             <button
-              className="md:hidden flex-shrink-0"
+              className="md:hidden flex-shrink-0 mr-1 sm:mr-8"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             >
               {mobileMenuOpen ? (
-                <X className={`w-5 h-5 sm:w-6 sm:h-6 ${scrolled ? 'text-text' : 'text-white'}`} />
+                <X className={`w-3 h-3 sm:w-4 sm:h-4 ${scrolled ? 'text-text' : 'text-white'}`} />
               ) : (
-                <Menu className={`w-5 h-5 sm:w-6 sm:h-6 ${scrolled ? 'text-text' : 'text-white'}`} />
+                <Menu className={`w-3 h-3 sm:w-4 sm:h-4 ${scrolled ? 'text-text' : 'text-white'}`} />
               )}
             </button>
           </div>
@@ -117,8 +132,11 @@ const Navbar = () => {
                       {link.name}
                     </Link>
                   ))}
+
                   <Button size="sm">
-                    Partner With Us
+                    <Link to="/apply">
+                      Apply
+                    </Link>
                   </Button>
                 </div>
               </motion.div>

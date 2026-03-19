@@ -50,7 +50,7 @@ const Home = () => {
       <Navbar />
       
       {/* Hero Section */}
-      <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden">
+      <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden -mt-16 md:-mt-20">
         {/* Video Background - Bottom Layer */}
         <video
           autoPlay
@@ -97,7 +97,7 @@ const Home = () => {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
-              className="text-5xl md:text-7xl font-bold text-primary mb-6 leading-tight"
+              className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-primary mb-6 leading-tight"
             >
               Unlocking Potential.
               <br />
@@ -110,7 +110,7 @@ const Home = () => {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.4 }}
-              className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto leading-relaxed"
+              className="text-lg sm:text-xl text-gray-600 mb-8 max-w-2xl mx-auto leading-relaxed"
             >
               We empower young people from underserved communities with the guidance, skills, and support needed to access real opportunities.
             </motion.p>
