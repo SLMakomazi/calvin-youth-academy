@@ -117,27 +117,36 @@ const Navbar = () => {
                 initial={{ opacity: 0, height: 0 }}
                 animate={{ opacity: 1, height: 'auto' }}
                 exit={{ opacity: 0, height: 0 }}
-                className="md:hidden mt-4 pb-4"
+                className="md:hidden mt-4 pb-4 bg-white/95 backdrop-blur-lg fixed inset-0 z-50 h-2/4"
               >
-                <div className="flex flex-col space-y-4">
+                <div className="flex flex-col items-center justify-center space-y-3 py-4">
                   {navLinks.map((link) => (
                     <Link
                       key={link.name}
                       to={link.href}
                       className={`font-medium transition-colors duration-200 hover:text-secondary ${
-                        scrolled ? 'text-text' : 'text-white'
-                      } ${location.pathname === link.href ? 'text-secondary' : ''}`}
+                        location.pathname === link.href ? 'text-secondary' : 'text-text'
+                      }`}
                       onClick={() => setMobileMenuOpen(false)}
                     >
                       {link.name}
                     </Link>
                   ))}
-
-                  <Button size="sm">
-                    <Link to="/apply">
+                  
+                  {/* Apply Button */}
+                  <Link to="/apply" onClick={() => setMobileMenuOpen(false)}>
+                    <Button size="sm" className="mt-4">
                       Apply
-                    </Link>
-                  </Button>
+                    </Button>
+                  </Link>
+                  
+                  {/* Close Button */}
+                  <button
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="mt-4 p-2 text-text hover:text-secondary transition-colors duration-200"
+                  >
+                    <X className="w-6 h-6" />
+                  </button>
                 </div>
               </motion.div>
             )}

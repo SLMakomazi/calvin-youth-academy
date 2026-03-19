@@ -1,4 +1,5 @@
 import React from 'react';
+// eslint-disable-next-line no-unused-vars
 import { motion } from 'framer-motion';
 import { Heart, Target, Eye, Users, Award, Lightbulb } from 'lucide-react';
 import Navbar from '../components/Navbar';
